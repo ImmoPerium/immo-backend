@@ -18,6 +18,7 @@ module.exports = {
   // },
   development: {
     client: 'pg',
+    ssl: { rejectUnauthorized: false },
     connection: process.env.DATABASE_URL,
     useNullAsDefault: true,
     migrations: {

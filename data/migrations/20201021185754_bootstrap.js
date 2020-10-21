@@ -38,7 +38,7 @@ exports.up = function(knex) {
       real_estate_advertisements.integer('level');
       real_estate_advertisements.decimal('lot_area');
       real_estate_advertisements.decimal('house_area').notNullable();
-      real_estate_advertisements.decimal('rental_price_basic').defaultTo(knex.fn.now());
+      real_estate_advertisements.decimal('rental_price_basic');
       real_estate_advertisements.decimal('rental_price_total');
       real_estate_advertisements.decimal('rental_deposit');
       real_estate_advertisements.decimal('purchase_price');
@@ -64,7 +64,7 @@ exports.up = function(knex) {
       real_estate_advertisements.string('object_number').unique();
       real_estate_advertisements.string('advertisement_purpose').notNullable();
       real_estate_advertisements.string('advertisement_title').notNullable();
-      real_estate_advertisements.string('advertisement_description');notNullable();
+      real_estate_advertisements.string('advertisement_description').notNullable();
       real_estate_advertisements.string('furnishing_description');
       real_estate_advertisements.string('location_description');
       real_estate_advertisements.string('other_description');

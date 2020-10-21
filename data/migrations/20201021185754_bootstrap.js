@@ -38,7 +38,7 @@ exports.up = function(knex) {
       real_estate_advertisements.integer('level');
       real_estate_advertisements.decimal('lot_area');
       real_estate_advertisements.decimal('house_area').notNullable();
-      real_estate_advertisements.decimal('rental_price_basic');
+      real_estate_advertisements.decimal('rental_price_basic').defaultTo(knex.fn.now());
       real_estate_advertisements.decimal('rental_price_total');
       real_estate_advertisements.decimal('rental_deposit');
       real_estate_advertisements.decimal('purchase_price');
@@ -53,12 +53,12 @@ exports.up = function(knex) {
       real_estate_advertisements.integer('bedrooms').notNullable();
       real_estate_advertisements.integer('livingrooms');
       real_estate_advertisements.integer('bathrooms').notNullable();
-      real_estate_advertisements.boolean('basement');
+      real_estate_advertisements.boolean('basement').defaultTo(false);
       real_estate_advertisements.decimal('basement_area');
       real_estate_advertisements.boolean('pets_allowed').notNullable();
       real_estate_advertisements.boolean('barrier_free').notNullable();
       real_estate_advertisements.string('heating').notNullable();
-      real_estate_advertisements.boolean('pool');
+      real_estate_advertisements.boolean('pool').defaultTo(false);
       real_estate_advertisements.boolean('offstreet_parking').notNullable();
       real_estate_advertisements.date('vacancy').notNullable();
       real_estate_advertisements.string('object_number').unique();

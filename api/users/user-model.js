@@ -21,6 +21,13 @@ function findById(id) {
     .then(user => (user ? user : null));
 }
 
+function findByEmail(user_email) {
+  return db('users')
+    .where('email_address', user_email)
+    .first()
+    .then(user => (user ? user : null));
+}
+
 function findBy(filter) {
   return db('users')
     .where(filter)
@@ -34,13 +41,6 @@ function findBy(filter) {
     .select('t.id', 'u.email as user_email')
     .where('t.user_id', userId);
 } */
-
-function findByEmail(user_email) {
-  return db('users')
-    .where('email_address', user_email)
-    .first()
-    .then(user => (user ? user : null));
-}
 
 function add(user) {
   return db('users')

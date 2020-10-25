@@ -6,6 +6,7 @@ const morgan = require('morgan');
 require('dotenv').config();
 
 const UsersRouter = require('./api/users/user-router.js');
+const AdvertisementsRouter = require('./api/advertisements/advertisements-router.js');
 
 const server = express();
 
@@ -20,7 +21,7 @@ server.get('/', function rootHandler(req, res) {
   );
 });
 
-
 server.use('/v1/users', UsersRouter);
+server.use('/v1/advertisements', AdvertisementsRouter);
 
 module.exports = server;

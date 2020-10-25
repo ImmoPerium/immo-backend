@@ -219,7 +219,7 @@ router.put(
   },
 );
 
-/* // GET ALL TASTE_PROFILE OF A USER BY USER ID
+// GET ALL REAL ESTATE ADVERTISEMENT OF A USER BY USER ID
 router.get(
   '/:id/advertisements',
   ValidateMiddleware.validateUserId,
@@ -228,7 +228,7 @@ router.get(
       user: { id },
     } = req;
     try {
-      const userTasteProfiles = await Users.findTasteProfiles(id);
+      const userRealEstateAdvertisements = await Users.findTasteProfiles(id);
       if (userTasteProfiles && userTasteProfiles.length) {
         res.status(200).json(userTasteProfiles);
       } else {
@@ -247,6 +247,36 @@ router.get(
       });
     }
   },
-); */
+);
+
+// GET ALL REAL ESTATE ADVERTISEMENTS BY A USER ID
+router.get(
+  '/:id/advertisements',
+  ValidateMiddleware.validateUserId,
+  async (req, res) => {
+    const {
+      user: { id },
+    } = req;
+
+    try {
+      const userRealEstateAdvertisements = await Users.findRealEstateAdvertisementsByUserId(id);
+      if (userRealEstateAdvertisements && userRealEstateAdvertisements.length) {
+        res.status(200).json(userRealEstateAdvertisements);
+      } else {
+        res.status(404).json({
+          info: `No real estate advertisements are available for the user with the id ${id}.`,
+        });
+      }
+    } catch (error) {
+      const {
+        user: { id },
+      } = req;
+
+      res.status(500).json({
+        error: `An error occurred retrieving the real estate advertisements for the user with the id ${id}.`,
+      });
+    }
+  },
+);
 
 module.exports = router;

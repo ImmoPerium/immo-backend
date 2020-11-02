@@ -1,8 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 
 const Users = require('./user-model.js');
 const ValidateMiddleware = require('../middlewares/validate-middleware.js');
+const ValidateAuthenticationMiddleware = require('../middlewares/auth-middleware');
+const jsonwebtoken = require('jsonwebtoken');
+const { response } = require('../../server.js');
+const authId = process.env.AUTH;
+
 
 /* GET ALL USERS */
 router.get('/', (req, res) => {
@@ -19,7 +25,7 @@ router.get('/', (req, res) => {
 });
 
 /* GET A USER BY ID */
-router.get('/:id', ValidateMiddleware.validateUserId, async (req, res) => {
+router.get('/:id', ValidateAuthenticationMiddleware.validateAuthentication, ValidateMiddleware.validateUserId, async (req, res) => {
   try {
     const { user: { id } } = req;
     const user = await Users.findById(id);
@@ -89,6 +95,10 @@ router.post('/register', ValidateMiddleware.validateUser, (req, res) => {
     favorite_advertisements&&
     website
   ) {
+    const hash = bcrypt.hashSync(password, 12);
+    password = hash;
+
+
     Users.add({
       email_address,
       firstname,
@@ -135,8 +145,67 @@ router.post('/register', ValidateMiddleware.validateUser, (req, res) => {
 
 /* LOGIN A USER */
 
+router.post('/login', (req, res) => {
+  const {
+    email_address,
+    password
+  } = req.body;
+
+  Users.findByEmail(email_address)
+  .then(user => {
+    console.log(password)
+    console.log(bcrypt.compareSync(password, user.password))
+    console.log(user.password)
+    console.log(user.password === password)
+    console.log(typeof(user.password))
+    console.log(typeof(password))
+
+    if (user && bcrypt.compareSync(password, user.password)) {
+      const token = generateJWT(user);
+        res.status(200).json({
+          message: `You successfully logged in!`,
+          user: {
+            id: user.id,
+            email_address: user.email_address,
+            firstname: user.firstname,
+            lastname: user.lastname,
+          },
+          token: token,
+        });
+    } else {
+      res.status(401).json({
+        message: 'Your email or password is incorrect'
+      })
+    }
+  })
+  .catch(error =>{
+    res.status(500).json({
+      message:'Something unexpected occured. This is on us!' + error
+    })
+  })
+})
+
+
+// UTILITY FUNCTIONS
+function generateJWT(user) {
+  const payload = {
+    subject: user.id,
+    email_address: user.email_address,
+  };
+
+  const options = {
+    expiresIn: '12h',
+  };
+
+  return jsonwebtoken.sign(payload, authId, options);
+}
+
+/* LOGOUT A USER */
+
+
+
 /* DELETE A USER */
-router.delete('/:id', ValidateMiddleware.validateUserId, async (req, res) => {
+router.delete('/:id', ValidateAuthenticationMiddleware.validateAuthentication,ValidateMiddleware.validateUserId, async (req, res) => {
   try {
     const {
       user: { id },
@@ -162,6 +231,7 @@ router.put(
   '/:id',
   ValidateMiddleware.validateUserUpdate,
   ValidateMiddleware.validateUserId,
+  ValidateAuthenticationMiddleware.validateAuthentication,
   async (req, res) => {
     try {
       const {
@@ -219,40 +289,11 @@ router.put(
   },
 );
 
-// GET ALL REAL ESTATE ADVERTISEMENT OF A USER BY USER ID
-router.get(
-  '/:id/advertisements',
-  ValidateMiddleware.validateUserId,
-  async (req, res) => {
-    const {
-      user: { id },
-    } = req;
-    try {
-      const userRealEstateAdvertisements = await Users.findTasteProfiles(id);
-      if (userTasteProfiles && userTasteProfiles.length) {
-        res.status(200).json(userTasteProfiles);
-      } else {
-        res.status(404).json({
-          info: `No advertisements are available for the user with the id ${id}.`,
-        });
-      }
-    } catch (error) {
-      const {
-        user: { id },
-      } = req;
-      res.status(500).json({
-        error:
-          `An error occurred retrieving the advertisements for the user with the id ${id}. ` +
-          error,
-      });
-    }
-  },
-);
-
 // GET ALL REAL ESTATE ADVERTISEMENTS BY A USER ID
 router.get(
   '/:id/advertisements',
   ValidateMiddleware.validateUserId,
+  ValidateAuthenticationMiddleware.validateAuthentication,
   async (req, res) => {
     const {
       user: { id },

@@ -3,9 +3,10 @@ const router = express.Router();
 
 const RealEstateAdvertisements = require('./advertisements-model.js');
 const ValidateMiddleware = require('../middlewares/validate-middleware.js');
+const ValidateAuthenticationMiddleware = require('../middlewares/auth-middleware')
 
 /* GET ALL REAL ESTATE ADVERTISEMENTS */
-router.get('/', (req, res) => {
+router.get('/', ValidateAuthenticationMiddleware.validateAuthentication, (req, res) => {
   RealEstateAdvertisements.find()
     .then(real_estate_advertisements => {
       res.status(200).json({ real_estate_advertisements: real_estate_advertisements });
@@ -14,6 +15,20 @@ router.get('/', (req, res) => {
       res.status(500).json({
         error:
           'An error occurred during fetching all real estate advertisements. That one is on us!',
+      });
+    });
+});
+
+/* GET ALL PUBLIC REAL ESTATE ADVERTISEMENTS */
+router.get('/public', (req, res) => {
+  RealEstateAdvertisements.findPublicAdvertisements()
+    .then(real_estate_advertisements => {
+      res.status(200).json({ real_estate_advertisements: real_estate_advertisements });
+    })
+    .catch(error => {
+      res.status(500).json({
+        error:
+          'An error occurred during fetching all public real estate advertisements. That one is on us!',
       });
     });
 });
@@ -96,7 +111,7 @@ router.get('/:id', ValidateMiddleware.validateRealEstateAdvertisementId, async (
 });
 
 /* ADD A NEW REAL ESTATE ADVERTISEMENT */
-router.post('/add', ValidateMiddleware.validateRealEstateAdvertisement, (req, res) => {
+router.post('/add', ValidateAuthenticationMiddleware.validateAuthentication, ValidateMiddleware.validateRealEstateAdvertisement, (req, res) => {
   let {
     user_id,
     street,
@@ -276,7 +291,7 @@ router.post('/add', ValidateMiddleware.validateRealEstateAdvertisement, (req, re
 });
 
 /* DELETE A REAL ESTATE ADVERTISEMENT */
-router.delete('/:id', ValidateMiddleware.validateRealEstateAdvertisementId, async (req, res) => {
+router.delete('/:id', ValidateAuthenticationMiddleware.validateAuthentication, ValidateMiddleware.validateRealEstateAdvertisementId, async (req, res) => {
   try {
     const {
       real_estate_advertisements: { id },
@@ -302,6 +317,7 @@ router.put(
   '/:id',
   ValidateMiddleware.validateRealEstateAdvertisementUpdate,
   ValidateMiddleware.validateRealEstateAdvertisementId,
+  ValidateAuthenticationMiddleware.validateAuthentication,
   async (req, res) => {
     try {
       const {

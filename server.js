@@ -5,9 +5,6 @@ const morgan = require('morgan');
 
 require('dotenv').config();
 
-const UsersRouter = require('./api/users/user-router.js');
-const AdvertisementsRouter = require('./api/advertisements/advertisements-router.js');
-
 const server = express();
 
 server.use(express.json());
@@ -20,6 +17,9 @@ server.get('/', function rootHandler(req, res) {
     `Welcome to the ${process.env.DEPLOYMENT} environment API of Immoperium!`,
   );
 });
+
+const UsersRouter = require('./api/users/user-router.js');
+const AdvertisementsRouter = require('./api/advertisements/advertisements-router.js');
 
 server.use('/v1/users', UsersRouter);
 server.use('/v1/advertisements', AdvertisementsRouter);

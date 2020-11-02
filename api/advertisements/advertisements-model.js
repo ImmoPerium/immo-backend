@@ -8,10 +8,17 @@ module.exports = {
   add,
   update,
   remove,
+  findPublicAdvertisements
 };
 
 function find() {
   return db('real_estate_advertisements');
+}
+
+function findPublicAdvertisements() {
+  return db('real_estate_advertisements')
+    .where('is_public', true)
+    .then(real_estate_advertisements => (real_estate_advertisements ? real_estate_advertisements : null));
 }
 
 function findById(id) {

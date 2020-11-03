@@ -37,7 +37,7 @@ function findBy(filter) {
 }
 
 function findRealEstateAdvertisementsByUserId(id) {
-  return db('reaL_estate_advertisements as r')
+  return db('real_estate_advertisements as r')
     .join('users as u', 'u.id', 'r.user_id')
     .select(
       'r.id',

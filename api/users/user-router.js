@@ -153,12 +153,12 @@ router.post('/login', (req, res) => {
 
   Users.findByEmail(email_address)
   .then(user => {
-    console.log(password)
+/*     console.log(password)
     console.log(bcrypt.compareSync(password, user.password))
     console.log(user.password)
     console.log(user.password === password)
     console.log(typeof(user.password))
-    console.log(typeof(password))
+    console.log(typeof(password)) */
 
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = generateJWT(user);
@@ -314,7 +314,7 @@ router.get(
       } = req;
 
       res.status(500).json({
-        error: `An error occurred retrieving the real estate advertisements for the user with the id ${id}.`,
+        error: `An error occurred retrieving the real estate advertisements for the user with the id ${id}.` + error,
       });
     }
   },

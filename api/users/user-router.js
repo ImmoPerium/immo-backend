@@ -63,7 +63,7 @@ router.get('/:id', ValidateAuthenticationMiddleware.validateAuthentication, Vali
 });
 
 /* ADD A NEW USER */
-router.post('/register', ValidateMiddleware.validateUser, (req, res) => {
+router.post('/register', (req, res) => {
   let {
     email_address,
     firstname,
@@ -84,8 +84,8 @@ router.post('/register', ValidateMiddleware.validateUser, (req, res) => {
     email_address&&
     firstname&&
     lastname&&
-    password&&
-    company&&
+    password
+  /*   company&&
     phonenumber&&
     street&&
     streetnumber&&
@@ -93,7 +93,7 @@ router.post('/register', ValidateMiddleware.validateUser, (req, res) => {
     zip&&
     country&&
     favorite_advertisements&&
-    website
+    website */
   ) {
     const hash = bcrypt.hashSync(password, 12);
     password = hash;

@@ -1,0 +1,359 @@
+{
+	"info": {
+		"_postman_id": "0d3ec5b7-bf29-45dd-a012-fb6d1ed4648c",
+		"name": "Immoperium Local",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "All Advertisements",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/v1/advertisements",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"advertisements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Public Advertisements",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/v1/advertisements/public",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"advertisements",
+						"public"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Advertisement by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/v1/advertisements/1",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"advertisements",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Advertisement",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user_id\":1,\"street\": \"Teststrasse\", \"streetnumber\":\"14\",\"country\":\"Deutschland\",\"city\":\"Hamburg\",\"zip\":\"21111\",\"level\":1,\"lot_area\":\"150.20\",\"house_area\":\"52.50\",\"rental_price_basic\":\"800.00\",\"rental_price_total\":\"1100.00\",\"rental_deposit\":\"2400.00\",\"purchase_price\":\"130000.00\",\"courtage_percent\": 2,\"building_type\":\"Haus\",\"overall_condition\":\"gut\",\"furnishing_condition\":\"neu\",\"construction_date\":\"2020-10-20T22:00:00.000Z\",\"renovation_date\":\"2020-10-20T22:00:00.000Z\",\"number_of_floors\":2,\"rooms\":\"6.00\",\"bedrooms\":2,\"livingrooms\":1,\"bathrooms\":2,\"basement\":true,\"basement_area\":\"30.00\",\"pets_allowed\":true,\"barrier_free\":true,\"heating\":\"Zentralheizung\",\"pool\":false,\"offstreet_parking\":true,\"vacancy\":\"2020-10-20T22:00:00.000Z\",\"object_number\":\"Test_0007\",\"advertisement_purpose\":\"Aus Lust\",\"advertisement_title\":\"kaufen kaufen kaufen\",\"advertisement_description\":\"kaufen kaufen immer nur kaufen\",\"furnishing_description\":\"top in schuss\",\"location_description\":\"beste lage (VDP)\",\"other_description\":\"beste Nachbarn\",\"photo_1\":null,\"photo_2\":null,\"photo_3\":null,\"photo_4\":null,\"photo_5\":null,\"photo_6\":null,\"photo_7\":null,\"photo_8\":null,\"photo_9\":null,\"photo_10\":null,\"is_public\":true,\"is_location_public\":false}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/v1/advertisements/add",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"advertisements",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Advertisement",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"street\": \"Updatestrasse\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/v1/advertisements/6",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"advertisements",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Advertisement",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/v1/advertisements/6",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"advertisements",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/v1/users",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/v1/users/1",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Avertisements of User by Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo4LCJlbWFpbF9hZGRyZXNzIjoiMjIyMmZha2VtYWlsQGdtYWlsLmNvbSIsImlhdCI6MTYwNDQ0NTY4MSwiZXhwIjoxNjA0NDg4ODgxfQ.xlyV4FAQxHVNLZmUdCfoNyYIF0HM0IO3ZH2iMs05OGc",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:5000/v1/users/1/advertisements",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"users",
+						"1",
+						"advertisements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"email_address\": \"2222fakemail@gmail.com\",\r\n    \"firstname\": \"Peter\",\r\n    \"lastname\": \"Petersen\",\r\n    \"password\": \"12345\",\r\n    \"company\": \"Deutsche Bahn\",\r\n    \"phonenumber\": \"+491737782498\",\r\n    \"street\": \"Fakestreet\",\r\n    \"streetnumber\": \"123\",\r\n    \"city\": \"Berlin\",\r\n    \"zip\": \"10000\",\r\n    \"country\": \"Germany\",\r\n    \"favorite_advertisements\": \"Food\",\r\n    \"website\": \"www.fake.de\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/v1/users/register",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login a User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email_address\": \"2222fakemail@gmail.com\",\r\n    \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/v1/users/login",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"street\": \"Updatestrasse5\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/v1/users/8",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"users",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/v1/users/8",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"users",
+						"8"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

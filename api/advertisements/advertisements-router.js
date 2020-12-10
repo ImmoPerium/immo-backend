@@ -33,6 +33,34 @@ router.get('/public', (req, res) => {
     });
 });
 
+/* GET A REAL ESTATE ADVERTISEMENT BY POSTAL-CODE */
+router.get('/zip/:zip', async (req, res) => {
+  try {
+    const { params: { zip } } = req;
+    const real_estate_advertisements = await RealEstateAdvertisements.findByPostalCode(zip);
+    
+    //console.log("irgendwas",real_estate_advertisement)
+    if (real_estate_advertisements === null) {
+      res.status(400).json({
+        error: `Real estate advertisement input Postal Code ${zip} is invalid.`,
+      });
+    } else {   
+      res.status(200).json({
+        real_estate_advertisements
+      });
+    }
+  } catch (error) {
+    const {
+      params: { zip },
+    } = req;
+    
+    res.status(500).json({
+      error: `An error occurred during fetching POSTAL-CODE with the zip ${zip}.`+ error,
+    });
+  }
+});
+
+
 /* GET A REAL ESTATE ADVERTISEMENT BY ID */
 router.get('/:id', ValidateMiddleware.validateRealEstateAdvertisementId, async (req, res) => {
   try {
@@ -96,7 +124,10 @@ router.get('/:id', ValidateMiddleware.validateRealEstateAdvertisementId, async (
         photo_9: real_estate_advertisement.photo_9,
         photo_10: real_estate_advertisement.photo_10,
         is_public: real_estate_advertisement.is_public,
-        is_location_public: real_estate_advertisement.is_location_public
+        is_location_public: real_estate_advertisement.is_location_public,
+        view_count: real_estate_advertisement.view_count,
+        favorite_count: real_estate_advertisement.favorite_count,
+        created_at: real_estate_advertisement.created_at
       });
     }
   } catch (error) {
@@ -372,7 +403,10 @@ router.put(
           photo_9,
           photo_10,
           is_public,
-          is_location_public
+          is_location_public,
+          view_count,
+          favorite_count,
+          created_at
         },
         real_estate_advertisements: { id },
       } = req;
@@ -428,7 +462,10 @@ router.put(
         photo_9,
         photo_10,
         is_public,
-        is_location_public
+        is_location_public,
+        view_count,
+        favorite_count,
+        created_at
       });
       return successFlag > 0
         ? res.status(200).json({

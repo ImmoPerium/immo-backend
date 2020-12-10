@@ -291,7 +291,7 @@ router.put(
 
 // GET ALL REAL ESTATE ADVERTISEMENTS BY A USER ID
 router.get(
-  '/:id/advertisements',
+  '/:id/realestate',
   ValidateMiddleware.validateUserId,
   ValidateAuthenticationMiddleware.validateAuthentication,
   async (req, res) => {

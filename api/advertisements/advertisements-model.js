@@ -8,11 +8,18 @@ module.exports = {
   add,
   update,
   remove,
-  findPublicAdvertisements
+  findPublicAdvertisements,
+  findByPostalCode
 };
 
 function find() {
   return db('real_estate_advertisements');
+}
+
+function findByPostalCode(zip){
+  return db('real_estate_advertisements')
+  .where('zip', zip)
+  .then(real_estate_advertisements => (real_estate_advertisements ? real_estate_advertisements : null));
 }
 
 function findPublicAdvertisements() {

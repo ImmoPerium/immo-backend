@@ -135,7 +135,10 @@ function findRealEstateAdvertisementsByUserId(id) {
       "r.photo_9",
       "r.photo_10",
       "r.is_public",
-      "r.is_location_public"
+      "r.is_location_public",
+      "r.view_count",
+      "r.favorite_count",
+      "r.created_at"
     )
     .where("r.user_id", id);
 }

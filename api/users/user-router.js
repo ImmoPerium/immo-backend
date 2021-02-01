@@ -400,4 +400,40 @@ router.get(
   }
 );
 
+// GET ALL REAL ESTATE ADVERTISEMENTS BY A USER ID
+router.get(
+  "/:id/realestatefavorites",
+  ValidateMiddleware.validateUserId,
+  ValidateAuthenticationMiddleware.validateAuthentication,
+  async (req, res) => {
+    const {
+      user: { id },
+    } = req;
+
+    try {
+      const favoriteIds = await Users.getfavorite(id);
+      if (favoriteIds && favoriteIds.length) {
+        const favoriteRealEstates = await Users.findFavoriteRealEstateAdvertisementsByUserId(
+          favoriteIds[0].favorite_advertisements.split("-")
+        );
+        res.status(200).json(favoriteRealEstates);
+      } else {
+        res.status(404).json({
+          info: `No favorite real estate advertisements are available for the user with the id ${id}.`,
+        });
+      }
+    } catch (error) {
+      const {
+        user: { id },
+      } = req;
+
+      res.status(500).json({
+        error:
+          `An error occurred retrieving the favorite real estate advertisements for the user with the id ${id}.` +
+          error,
+      });
+    }
+  }
+);
+
 module.exports = router;

@@ -6,12 +6,18 @@ module.exports = {
   findByEmail,
   findBy,
   findRealEstateAdvertisementsByUserId,
+  findFavoriteRealEstateAdvertisementsByUserId,
   add,
   update,
   remove,
+  getfavorite,
   addfavorite,
   removefavorite,
 };
+
+function getfavorite(user_id) {
+  return db("users").select("favorite_advertisements").where("id", user_id);
+}
 
 function removefavorite(user_id, ad_id) {
   findById(user_id)
@@ -141,6 +147,68 @@ function findRealEstateAdvertisementsByUserId(id) {
       "r.created_at"
     )
     .where("r.user_id", id);
+}
+
+function findFavoriteRealEstateAdvertisementsByUserId(arrayOfFavorites) {
+  return db("real_estate_advertisements as r")
+    .select(
+      "r.id",
+      "r.user_id",
+      "r.street",
+      "r.streetnumber",
+      "r.country",
+      "r.city",
+      "r.zip",
+      "r.level",
+      "r.lot_area",
+      "r.house_area",
+      "r.rental_price_basic",
+      "r.rental_price_total",
+      "r.rental_deposit",
+      "r.purchase_price",
+      "r.courtage_percent",
+      "r.building_type",
+      "r.overall_condition",
+      "r.furnishing_condition",
+      "r.construction_date",
+      "r.renovation_date",
+      "r.number_of_floors",
+      "r.rooms",
+      "r.bedrooms",
+      "r.livingrooms",
+      "r.bathrooms",
+      "r.basement",
+      "r.basement_area",
+      "r.pets_allowed",
+      "r.barrier_free",
+      "r.heating",
+      "r.pool",
+      "r.offstreet_parking",
+      "r.vacancy",
+      "r.object_number",
+      "r.advertisement_purpose",
+      "r.advertisement_title",
+      "r.advertisement_description",
+      "r.furnishing_description",
+      "r.location_description",
+      "r.other_description",
+      "r.photo_1",
+      "r.photo_2",
+      "r.photo_3",
+      "r.photo_4",
+      "r.photo_5",
+      "r.photo_6",
+      "r.photo_7",
+      "r.photo_8",
+      "r.photo_9",
+      "r.photo_10",
+      "r.is_public",
+      "r.is_location_public",
+      "r.view_count",
+      "r.favorite_count",
+      "r.created_at"
+    )
+    .whereIn("r.id", arrayOfFavorites);
 }
 
 function add(user) {
